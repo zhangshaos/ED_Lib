@@ -5,25 +5,25 @@
 using namespace cv;
 using namespace std;
 
-ED::ED(Mat _srcImage, GradientOperator _op, int _gradThresh, int _anchorThresh,int _scanInterval, int _minPathLen ,double _sigma, bool _sumFlag)
+ED::ED(Mat srcImage_, GradientOperator op_, int gradThresh_, int anchorThresh_, int scanInterval_, int minPathLen_ , double sigma_, bool sumFlag_)
 {	
 	// Check parameters for sanity
-	if (_gradThresh < 1) _gradThresh = 1;
-	if (_anchorThresh < 0) _anchorThresh = 0;
-	if (_sigma < 1.0) _sigma = 1.0;
+	if (gradThresh_ < 1) gradThresh_ = 1;
+	if (anchorThresh_ < 0) anchorThresh_ = 0;
+	if (sigma_ < 1.0) sigma_ = 1.0;
 
-	srcImage = _srcImage;
+	srcImage = srcImage_;
 
 	height = srcImage.rows;
 	width = srcImage.cols;
 	
-	op = _op;
-	gradThresh = _gradThresh;
-	anchorThresh = _anchorThresh;
-	scanInterval = _scanInterval;
-	minPathLen = _minPathLen;
-	sigma = _sigma;
-	sumFlag = _sumFlag;
+	op = op_;
+	gradThresh = gradThresh_;
+	anchorThresh = anchorThresh_;
+	scanInterval = scanInterval_;
+	minPathLen = minPathLen_;
+	sigma = sigma_;
+	sumFlag = sumFlag_;
 
 	segmentNos = 0;
 	segmentPoints.push_back(vector<Point>()); // create empty vector of points for segments

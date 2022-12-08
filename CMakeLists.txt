@@ -1,31 +1,36 @@
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 3.12)
 project(ED_Lib)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
+if(MSVC)
+    add_compile_options(/bigobj /MP /utf-8)
+endif()
 
-find_package(OpenCV)
-include_directories(${OpenCV_INCLUDE_DIRS})
+find_package(OpenCV REQUIRED)
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
 
 add_library(EDLib STATIC
-        ED.cpp
-        ED.h
-        EDCircles.cpp
-        EDCircles.h
-        EDColor.cpp
-        EDColor.h
-        EDLib.h
-        EDLines.cpp
-        EDLines.h
-        EDPF.cpp
-        EDPF.h
-        NFA.cpp
-        NFA.h)
+        src/ED.cpp
+        include/ED.h
+        src/EDCircles.cpp
+        include/EDCircles.h
+        src/EDColor.cpp
+        include/EDColor.h
+        include/EDLib.h
+        src/EDLines.cpp
+        include/EDLines.h
+        src/EDPF.cpp
+        include/EDPF.h
+        src/NFA.cpp
+        include/NFA.h)
+target_include_directories(EDLib PUBLIC include)
+target_link_libraries(EDLib PUBLIC ${OpenCV_LIBS})
 
-add_executable(test_it test_it.cpp)
-target_link_libraries(test_it ${OpenCV_LIBS} EDLib)
+add_executable(test example/test.cpp)
+target_link_libraries(test PRIVATE EDLib)
 
-add_executable(test_ED test_ED.cpp)
-target_link_libraries(test_ED ${OpenCV_LIBS} EDLib)
-
-add_executable(video_test video_test.cpp)
-target_link_libraries(video_test ${OpenCV_LIBS} EDLib)
+add_executable(test_it example/test_it.cpp)
+target_link_libraries(test_it PRIVATE EDLib)

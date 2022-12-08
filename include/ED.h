@@ -51,7 +51,7 @@ struct Chain {
 class ED {
 							
 public:
-	ED(cv::Mat _srcImage, GradientOperator _op = PREWITT_OPERATOR, int _gradThresh = 20, int _anchorThresh = 0, int _scanInterval = 1, int _minPathLen = 10, double _sigma = 1.0, bool _sumFlag = true);
+	ED(cv::Mat srcImage_, GradientOperator op_ = PREWITT_OPERATOR, int gradThresh_ = 20, int anchorThresh_ = 0, int scanInterval_ = 1, int minPathLen_ = 10, double sigma_ = 1.0, bool sumFlag_ = true);
 	ED(const ED &cpyObj); 
 	ED(short* gradImg, uchar *dirImg, int _width, int _height, int _gradThresh, int _anchorThresh, int _scanInterval = 1, int _minPathLen = 10, bool selectStableAnchors = true);
 	ED(EDColor &cpyObj);

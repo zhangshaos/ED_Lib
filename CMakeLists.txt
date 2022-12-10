@@ -29,8 +29,14 @@ add_library(EDLib STATIC
 target_include_directories(EDLib PUBLIC include)
 target_link_libraries(EDLib PUBLIC ${OpenCV_LIBS})
 
+#################################################
+#                Build Examples                 #
+#################################################
+set(BUILD_EXAMPLE FALSE)
+if(BUILD_EXAMPLE)
 add_executable(EDBasicTest example/test.cpp)
 target_link_libraries(EDBasicTest PRIVATE EDLib)
 
 add_executable(EDTest example/test_it.cpp)
 target_link_libraries(EDTest PRIVATE EDLib)
+endif()
